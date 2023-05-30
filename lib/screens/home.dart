@@ -10,7 +10,41 @@ class Home extends StatelessWidget {
       backgroundColor: tdBGColor,
       appBar: _buildAppBar(),
       body: Container(
-        child: const Text("Home"),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 15,
+          ),
+          child: Column(
+            children: [
+              searchBox(),
+            ],
+          )),
+    );
+  }
+
+  Widget searchBox() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: const TextField(
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(0),
+          prefixIcon: Icon(
+            Icons.search,
+            color: tdBlack,
+            size: 20,
+          ),
+          prefixIconConstraints: BoxConstraints(
+            maxHeight: 15,
+            minWidth: 25,
+          ),
+          border: InputBorder.none,
+          hintText: 'Search',
+          hintStyle: TextStyle(color: tdGrey),
+        ),
       ),
     );
   }
@@ -22,7 +56,7 @@ class Home extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(
+          const Icon(
             Icons.menu,
             color: tdBlack,
             size: 30,
