@@ -1,49 +1,101 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/constants/colors.dart';
+import 'package:todoapp/model/todo.dart';
 import 'package:todoapp/widgets/todo_item.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  Home({super.key});
+
+  final todoList = ToDo.todoItems(10);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: tdBGColor,
       appBar: _buildAppBar(),
-      body: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 15,
-          ),
-          child: Column(
-            children: [
-              searchBox(),
-              Expanded(
-                child: ListView(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(
-                        top: 50,
-                        bottom: 20,
-                      ),
-                      child: const Text(
-                        'All Todos',
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500,
+      body: Stack(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 15,
+            ),
+            child: Column(
+              children: [
+                searchBox(),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(
+                          top: 50,
+                          bottom: 20,
+                        ),
+                        child: const Text(
+                          'All Todos',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
+                      for (ToDo todo in todoList)
+                        TodoItem(
+                          todo: todo,
+                        )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 20, right: 20, left: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(0.0, 0.0),
+                            blurRadius: 10.0,
+                            spreadRadius: 0.0,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(10)),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          hintText: 'Add a new todo item',
+                          border: InputBorder.none),
                     ),
-                    TodoItem(),
-                    TodoItem(),
-                    TodoItem(),
-                    TodoItem(),
-                    TodoItem(),
-                  ],
+                  ),
                 ),
-              )
-            ],
-          )),
+                Container(
+                  margin: EdgeInsets.only(bottom: 20, right: 20),
+                  child: ElevatedButton(
+                    child: Text(
+                      "+",
+                      style: TextStyle(
+                        fontSize: 40,
+                      ),
+                    ),
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: tdBlue,
+                        minimumSize: Size(65, 65),
+                        elevation: 10),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 
